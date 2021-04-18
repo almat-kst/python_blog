@@ -66,7 +66,7 @@ class UserRepository:
 
     def select_user_by_username(self, username):
         try:
-            query = "SELECT id FROM blog_user WHERE username = '%s' " % username
+            query = "SELECT id FROM blog_user WHERE username = %d " % post.user_id
             self.__db.execute(query)
             if self.__db.cursor.rowcount >= 1:
                 return self.__db.cursor.fetchone()
@@ -143,10 +143,13 @@ class UserRepository:
             #query = query.format(username = user.username)
             self.__db.execute(query)
 
-            if self.__db.cursor.rowcount == 1:
+            if self.__db.cursor.rowcount >= 1:
                 return self.__db.cursor.fetchone()
             else:
                 return None
         except Exception as ex:
             print(ex)
             raise 
+
+
+

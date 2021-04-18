@@ -18,3 +18,6 @@ class PostController:
 
     def delete_post(self, id):
         return self.__post_repo.delete_post(id)
+
+    def update_post_by_id(self, id):
+        return self.__post_repo.update_post(id)

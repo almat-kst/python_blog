@@ -24,12 +24,12 @@ class PostMenu(BaseMenu):
 
 
     def update_post(self):
-        #input_id_func = get_id_func()
+        input_id_func = get_id_func()
         input_title_func = get_title_input()
         input_description_func = get_description_func()
 
-        # def get_id():
-        #     return input_id_func('Enter id: ')
+        def get_id():
+            return input_id_func('Enter id: ')
 
         def get_title():
             return input_title_func('Enter new title: ')
@@ -37,13 +37,14 @@ class PostMenu(BaseMenu):
         def get_description():
             return input_description_func('Enter new description: ')
 
-        #id_title = self.input_secure_wrap(get_id)
+        ###posts = self.__post_controller.update_post_by_id(self.__context.user.id)
+        id_title = self.input_secure_wrap(get_id)
         post_title = self.input_secure_wrap(get_title)
         post_description = self.input_secure_wrap(get_description)
 
         user_id = self.__user_controller.select_user_id(self.__context.user.username)
 
-        update = Post(user_id = user_id, title = post_title, description = post_description)
+        update = Post(id = id_title, user_id = user_id, title = post_title, description = post_description)
 
         if user_id:
             self.__post_controller.update_post(update)
@@ -81,6 +82,9 @@ class PostMenu(BaseMenu):
 
         def get_id():
             return input_id_func('Enter id: ')
+            # available_id = self.__post_controller.select_all_post():
+            # if get_id in self.__post_controller.select_all_post:
+
     
         delete_id = self.input_secure_wrap(get_id)
 

@@ -14,10 +14,12 @@ class PostRepository:
     def create_post(self, post: Post):
         try:
             with self.__db.connection.cursor() as cursor:
-                query = "INSERT INTO post (user_id, title, description) VALUES (user_id,'{title}','{description}') "
-                #query = "INSERT INTO post (user_id, title, description) VALUES (__user_controller.select_user_id,'{title}','{description}') "
+                print(post.user_id)
+                print(post.title)
+                print(post.description)
+                query = "INSERT INTO post (user_id, title, description) VALUES ( {user_id} , '{title}', '{description}') " 
                 query = query.format(
-                    user_id = post.user_id,
+                    user_id = post.user_id['id'],
                     title = post.title,
                     description = post.description 
                 )
@@ -70,9 +72,22 @@ class PostRepository:
 ###
     def update_post(self, post: Post):
         try:
-            query = "UPDATE post SET `user_id` = user_id, `title` = '{title}', `description` = '{description}' WHERE `user_id` = user_id "
+            query = "UPDATE post SET  `title` = '{title}', `description` = '{description}' WHERE `user_id` = {user_id} "
             query = query.format(
-                user_id =  post.user_id,
+                user_id =  post.user_id['id'],
+                title = post.title,
+                description = post.description
+            )
+            self.__db.execute(query)
+        except Exception as ex:
+            print(ex)
+
+    def update_post_by_id(self, id):
+        try:
+            query = "UPDATE post SET  `title` = '{title}', `description` = '{description}' WHERE `id` = {id} "
+            query = query.format(
+                id = post.id,
+                user_id =  post.user_id['id'],
                 title = post.title,
                 description = post.description
             )
